@@ -1,12 +1,10 @@
-import { changeDirectory, upDirectory } from "./navigation.js";
+import { changeDirectory, upDirectory, readDirectory } from "./navigation.js";
 
 export const startRepl = (rl, state) => {
   rl.prompt();
 
-  rl.on("line", (line) => {
+  rl.on("line", async (line) => {
     const [common, ...args] = line.trim().split(" ");
-
-    console.log(common);
     switch (common) {
       case "up": {
         upDirectory(state);
@@ -14,6 +12,10 @@ export const startRepl = (rl, state) => {
       }
       case "cd": {
         changeDirectory(state, args[0]);
+        break;
+      }
+      case "ls": {
+        await readDirectory();
         break;
       }
       case "exit": {
