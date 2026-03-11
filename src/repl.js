@@ -1,11 +1,20 @@
-export const startRepl = (rl) => {
+import { changeDirectory, upDirectory } from "./navigation.js";
+
+export const startRepl = (rl, state) => {
   rl.prompt();
 
   rl.on("line", (line) => {
-    const common = line.trim().toLowerCase();
+    const [common, ...args] = line.trim().split(" ");
+
+    console.log(common);
     switch (common) {
-      case "up": {  
-        
+      case "up": {
+        upDirectory(state);
+        break;
+      }
+      case "cd": {
+        changeDirectory(state, args[0]);
+        break;
       }
       case "exit": {
         rl.close();
@@ -17,6 +26,7 @@ export const startRepl = (rl) => {
         break;
       }
     }
+    rl.setPrompt(`${state.currentDir}>`);
     rl.prompt();
   });
 
