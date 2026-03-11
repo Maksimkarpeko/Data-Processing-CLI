@@ -1,3 +1,4 @@
+import { csvToJson } from "./commands/csvToJson.js";
 import { changeDirectory, upDirectory, readDirectory } from "./navigation.js";
 
 export const startRepl = (rl, state) => {
@@ -22,6 +23,10 @@ export const startRepl = (rl, state) => {
         rl.close();
         console.log("Thank you for using Data Processing CLI!");
         return;
+      }
+      case "csv-to-json": {
+        csvToJson(args);
+        break;
       }
       default: {
         console.log("Invalid command");
