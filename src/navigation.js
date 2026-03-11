@@ -30,7 +30,9 @@ export const readDirectory = async () => {
           ? "file"
           : "it isn't a file or a directory",
     }));
-    console.table(result);
+    result.map((file) => {
+      console.log(`${file.name} [${file.type}]`);
+    });
   } catch (error) {
     console.log(`Operation filed: ${error.message}`);
   }
